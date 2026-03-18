@@ -1,0 +1,228 @@
+/**
+ * Estilos Mi Plugin Itinerarios
+ *
+ * @package Mi_Plugin_Itinerarios
+ */
+
+/* Listado (shortcode y archive) */
+.mpi-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.mpi-itinerarios-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 1.5rem;
+}
+
+.mpi-itinerario-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+}
+
+.mpi-itinerario-card__image {
+	display: block;
+	aspect-ratio: 16/10;
+	overflow: hidden;
+}
+
+.mpi-itinerario-card__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.mpi-itinerario-card__content {
+	padding: 1.25rem;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.mpi-itinerario-card__title {
+	margin: 0 0 0.5rem;
+	font-size: 1.25rem;
+	line-height: 1.3;
+}
+
+.mpi-itinerario-card__title a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.mpi-itinerario-card__title a:hover {
+	text-decoration: underline;
+}
+
+.mpi-itinerario-card__excerpt {
+	margin-bottom: 1rem;
+	flex: 1;
+	font-size: 0.95rem;
+	line-height: 1.5;
+	color: #555;
+}
+
+.mpi-btn {
+	display: inline-block;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	text-decoration: none;
+	font-size: 0.95rem;
+	cursor: pointer;
+	border: none;
+	transition: opacity 0.2s;
+}
+
+.mpi-btn:hover {
+	opacity: 0.9;
+}
+
+.mpi-btn--primary {
+	background: #2271b1;
+	color: #fff;
+	align-self: flex-start;
+}
+
+.mpi-btn--secondary {
+	background: #f0f0f0;
+	color: #1d2327;
+}
+
+/* Archive */
+.mpi-archive__header {
+	margin-bottom: 1.5rem;
+}
+
+.mpi-archive__title {
+	margin: 0;
+	font-size: 2rem;
+}
+
+/* Single */
+.mpi-single-itinerario__header {
+	margin-bottom: 1rem;
+}
+
+.mpi-single-itinerario__title {
+	margin: 0;
+	font-size: 2rem;
+}
+
+.mpi-single-itinerario__thumbnail {
+	margin-bottom: 1.5rem;
+}
+
+.mpi-single-itinerario__thumbnail img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.mpi-single-itinerario__content {
+	margin-bottom: 1.5rem;
+}
+
+.mpi-single-itinerario__programa,
+.mpi-single-itinerario__galeria,
+.mpi-single-itinerario__link,
+.mpi-single-itinerario__reserva {
+	margin-bottom: 1.5rem;
+}
+
+.mpi-single-itinerario__programa h2,
+.mpi-single-itinerario__galeria h2 {
+	margin: 0 0 0.75rem;
+	font-size: 1.5rem;
+}
+
+.mpi-programa-text {
+	white-space: pre-wrap;
+	line-height: 1.6;
+}
+
+.mpi-galeria {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 1rem;
+}
+
+.mpi-galeria__item img {
+	width: 100%;
+	height: auto;
+	display: block;
+	border-radius: 4px;
+}
+
+/* Modal reserva */
+.mpi-modal {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+}
+
+.mpi-modal.is-open {
+	display: flex;
+}
+
+.mpi-modal__overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+.mpi-modal__content {
+	position: relative;
+	background: #fff;
+	border-radius: 8px;
+	padding: 1.5rem;
+	max-width: 500px;
+	width: 100%;
+	max-height: 90vh;
+	overflow-y: auto;
+}
+
+.mpi-modal__close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	color: #666;
+	padding: 0;
+}
+
+.mpi-modal__close:hover {
+	color: #000;
+}
+
+.mpi-modal__title {
+	margin: 0 0 1rem;
+	font-size: 1.25rem;
+}
+
+.mpi-modal__form .wpcf7-form label {
+	display: block;
+	margin-bottom: 0.25rem;
+}
+
+.mpi-modal__form .wpcf7-form input[type="text"],
+.mpi-modal__form .wpcf7-form input[type="email"],
+.mpi-modal__form .wpcf7-form textarea {
+	width: 100%;
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+}
