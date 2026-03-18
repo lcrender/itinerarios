@@ -1,6 +1,6 @@
 # Mi Plugin Itinerarios
 
-Plugin de WordPress para gestionar itinerarios turísticos. Incluye CPT, metaboxes nativos, listado por shortcode, detalle con galería y programa, y reserva mediante Contact Form 7.
+Plugin de WordPress para gestionar itinerarios turísticos. Incluye CPT, metaboxes nativos, listado por shortcode y detalle con itinerario día por día, extras y reserva mediante Contact Form 7.
 
 **Autor:** [Locomotora Render](https://locomotorarender.com)
 
@@ -8,8 +8,8 @@ Plugin de WordPress para gestionar itinerarios turísticos. Incluye CPT, metabox
 
 ## Instalación
 
-1. Copia la carpeta `mi-plugin-itinerarios` dentro de `wp-content/plugins/`.
-2. En el escritorio de WordPress ve a **Plugins** y activa **Mi Plugin Itinerarios**.
+1. Copia la carpeta `itinerarios` dentro de `wp-content/plugins/`.
+2. En el escritorio de WordPress ve a **Plugins** y activa **Itinerarios**.
 3. (Opcional) Instala y activa **Contact Form 7** si quieres usar el botón de reserva.
 4. Ve a **Ajustes > Enlaces permanentes** y guarda los cambios para refrescar las reglas de reescritura.
 
@@ -74,11 +74,11 @@ El plugin rellena automáticamente ese campo con el **título del itinerario** c
 ## Estructura del plugin
 
 ```
-mi-plugin-itinerarios/
-├── mi-plugin-itinerarios.php   # Entrada del plugin
+itinerarios/
+├── itinerarios.php   # Entrada del plugin
 ├── includes/
 │   ├── cpt.php                 # Custom Post Type itinerario
-│   ├── metaboxes.php           # Programa, galería, link externo
+│   ├── metaboxes.php           # Precio desde, descripción general, extras y días
 │   ├── shortcodes.php          # [itinerarios_list]
 │   └── templates-loader.php    # template_include + enqueue
 ├── templates/
