@@ -42,7 +42,7 @@ get_header();
 					<div class="mpi-itinerario-card__image-wrap">
 						<?php if ( ! empty( $precio_desde ) ) : ?>
 							<div class="mpi-itinerario-card__price">
-								<?php echo esc_html__( 'Desde', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
+								<?php echo esc_html__( 'From', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
 							</div>
 						<?php endif; ?>
 
