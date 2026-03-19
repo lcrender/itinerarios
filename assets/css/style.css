@@ -56,9 +56,10 @@
 
 .mpi-itinerario-card__price {
 	position: absolute;
-	top: 12px;
-	left: 12px;
-	right: 12px;
+	top: 50%;
+	left: 50%;
+	right: auto;
+	transform: translate(-50%, -50%);
 	font-size: 1.65rem;
 	font-weight: 800;
 	color: #fff;
