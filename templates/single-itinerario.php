@@ -18,7 +18,6 @@ while ( have_posts() ) {
 	the_post();
 
 		$post_id               = get_the_ID();
-		$precio_desde         = get_post_meta( $post_id, MPI_META_PRECIO_DESDE, true );
 		$descripcion_general  = get_post_meta( $post_id, MPI_META_DESCRIPCION_GENERAL, true );
 		$extras_incluidos     = get_post_meta( $post_id, MPI_META_EXTRAS_INCLUIDOS, true );
 		$dias                  = get_post_meta( $post_id, MPI_META_DIAS, true );
@@ -52,15 +51,8 @@ while ( have_posts() ) {
 		</header>
 
 		<div class="mpi-single-itinerario__content entry-content">
-			<?php if ( ! empty( $precio_desde ) ) : ?>
-				<div class="mpi-single-itinerario__price">
-					<?php echo esc_html__( 'From', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
-				</div>
-			<?php endif; ?>
-
 			<?php if ( ! empty( $descripcion_general ) ) : ?>
 				<section class="mpi-single-itinerario__descripcion-general">
-					<h2><?php esc_html_e( 'Descripción general', 'mi-plugin-itinerarios' ); ?></h2>
 					<div class="mpi-single-itinerario__descripcion-general-text">
 						<?php echo nl2br( esc_html( $descripcion_general ) ); ?>
 					</div>
