@@ -45,14 +45,11 @@ while ( have_posts() ) {
 
 	<article class="mpi-single-itinerario mpi-container">
 		<header class="mpi-single-itinerario__header">
-			<h1 class="mpi-single-itinerario__title"><?php echo esc_html( get_the_title() ); ?></h1>
+			<h1 class="mpi-single-itinerario__title">
+				<span class="mpi-single-itinerario__itinerary-prefix"><?php echo esc_html__( 'Itinerary', 'mi-plugin-itinerarios' ); ?></span>
+				<span class="mpi-single-itinerario__itinerario-name"><?php echo esc_html( get_the_title() ); ?></span>
+			</h1>
 		</header>
-
-		<?php if ( has_post_thumbnail() ) : ?>
-			<div class="mpi-single-itinerario__thumbnail">
-				<?php the_post_thumbnail( 'large' ); ?>
-			</div>
-		<?php endif; ?>
 
 		<div class="mpi-single-itinerario__content entry-content">
 			<?php if ( ! empty( $precio_desde ) ) : ?>
@@ -72,29 +69,40 @@ while ( have_posts() ) {
 
 			<?php if ( ! empty( $dias ) ) : ?>
 				<section class="mpi-single-itinerario__dias">
-					<h2><?php esc_html_e( 'Itinerario', 'mi-plugin-itinerarios' ); ?></h2>
-					<div class="mpi-itinerario-dias">
+					<div class="mpi-timeline">
 						<?php foreach ( $dias as $i => $dia ) : ?>
 							<?php
 								$titulo_dia = isset( $dia['titulo'] ) ? (string) $dia['titulo'] : '';
 								$desc_dia   = isset( $dia['descripcion'] ) ? (string) $dia['descripcion'] : '';
 								$img_id     = isset( $dia['imagen_id'] ) ? absint( $dia['imagen_id'] ) : 0;
 								$numero_dia = $i + 1;
-								$label_dia  = '' !== trim( $titulo_dia ) ? $titulo_dia : sprintf( 'Día %d', $numero_dia );
+								$day_label  = sprintf( 'Day %d', $numero_dia );
+								$card_title = '' !== trim( $titulo_dia ) ? $titulo_dia : $day_label;
 							?>
-							<div class="mpi-dia-bloque">
-								<?php if ( $img_id ) : ?>
-									<div class="mpi-dia-bloque__imagen">
-										<?php echo wp_get_attachment_image( $img_id, 'medium_large', false, array( 'loading' => 'lazy' ) ); ?>
-									</div>
-								<?php endif; ?>
+							<div class="mpi-timeline__item">
+								<div class="mpi-timeline__marker-col">
+									<div class="mpi-timeline__marker"><?php echo esc_html( $day_label ); ?></div>
+								</div>
 
-								<h3 class="mpi-dia-bloque__titulo"><?php echo esc_html( $label_dia ); ?></h3>
-								<?php if ( ! empty( $desc_dia ) ) : ?>
-									<div class="mpi-dia-bloque__descripcion">
-										<?php echo nl2br( esc_html( $desc_dia ) ); ?>
+								<div class="mpi-timeline__card">
+									<div class="mpi-timeline__card-inner">
+										<div class="mpi-timeline__card-text">
+											<h3 class="mpi-timeline__card-title"><?php echo esc_html( $card_title ); ?></h3>
+
+											<?php if ( ! empty( $desc_dia ) ) : ?>
+												<div class="mpi-timeline__card-desc">
+													<?php echo nl2br( esc_html( $desc_dia ) ); ?>
+												</div>
+											<?php endif; ?>
+										</div>
+
+										<?php if ( $img_id ) : ?>
+											<div class="mpi-timeline__card-image">
+												<?php echo wp_get_attachment_image( $img_id, 'medium_large', false, array( 'loading' => 'lazy' ) ); ?>
+											</div>
+										<?php endif; ?>
 									</div>
-								<?php endif; ?>
+								</div>
 							</div>
 						<?php endforeach; ?>
 					</div>

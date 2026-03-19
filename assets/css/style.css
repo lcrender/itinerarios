@@ -233,6 +233,15 @@
 	color: #2271b1;
 }
 
+.mpi-single-itinerario__itinerary-prefix {
+	font-weight: 700;
+	margin-right: 0.4rem;
+}
+
+.mpi-single-itinerario__itinerario-name {
+	font-weight: 400;
+}
+
 .mpi-single-itinerario__descripcion-general h2,
 .mpi-single-itinerario__dias h2,
 .mpi-single-itinerario__extras h2 {
@@ -248,6 +257,130 @@
 .mpi-itinerario-dias {
 	display: grid;
 	gap: 1.25rem;
+}
+
+/* Single: Timeline days (similar to provided design) */
+.mpi-timeline {
+	position: relative;
+	padding: 0;
+}
+
+.mpi-timeline::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 90px;
+	width: 3px;
+	background: #d9d9d9;
+	border-radius: 999px;
+}
+
+.mpi-timeline__item {
+	display: flex;
+	gap: 24px;
+	margin-bottom: 28px;
+	position: relative;
+	z-index: 1;
+}
+
+.mpi-timeline__marker-col {
+	width: 180px;
+	flex: 0 0 180px;
+	display: flex;
+}
+
+.mpi-timeline__marker {
+	position: relative;
+	left: 90px;
+	transform: translateX(-50%);
+	background: #f2c200;
+	color: #000;
+	padding: 0.35rem 0.7rem;
+	border-radius: 2px;
+	font-weight: 800;
+	font-size: 0.95rem;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.mpi-timeline__card {
+	flex: 1;
+	background: #fff;
+	border: 1px solid #eaeaea;
+	border-radius: 8px;
+	padding: 1rem;
+}
+
+.mpi-timeline__card-inner {
+	display: flex;
+	gap: 24px;
+	align-items: flex-start;
+}
+
+.mpi-timeline__card-text {
+	flex: 1;
+}
+
+.mpi-timeline__card-title {
+	margin: 0 0 0.6rem;
+	font-size: 1.15rem;
+	line-height: 1.3;
+	font-weight: 800;
+}
+
+.mpi-timeline__card-desc {
+	color: #333;
+	line-height: 1.7;
+	white-space: pre-wrap;
+}
+
+.mpi-timeline__card-image {
+	width: 320px;
+	flex: 0 0 320px;
+}
+
+.mpi-timeline__card-image img {
+	width: 100%;
+	height: 220px;
+	object-fit: cover;
+	display: block;
+	border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+	.mpi-timeline__item {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.mpi-timeline::before {
+		left: 20px;
+	}
+
+	.mpi-timeline__marker-col {
+		width: 100%;
+		flex-basis: auto;
+	}
+
+	.mpi-timeline__marker {
+		left: 20px;
+		transform: translateX(0);
+	}
+
+	.mpi-timeline__card-inner {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.mpi-timeline__card-image {
+		width: 100%;
+		flex-basis: auto;
+	}
+
+	.mpi-timeline__card-image img {
+		height: 200px;
+	}
 }
 
 .mpi-dia-bloque {
