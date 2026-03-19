@@ -37,6 +37,10 @@ mpi_load_plugin();
  */
 function mpi_activate() {
 	mpi_register_cpt();
+	// Asegura que la regla de rewrite exista antes del flush.
+	if ( function_exists( 'mpi_add_rewrite_rules' ) ) {
+		mpi_add_rewrite_rules();
+	}
 	flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'mpi_activate' );

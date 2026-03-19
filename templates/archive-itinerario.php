@@ -16,7 +16,7 @@ get_header();
 
 <main class="mpi-archive mpi-container">
 	<header class="mpi-archive__header">
-		<h1 class="mpi-archive__title"><?php esc_html_e( 'Itinerarios', 'mi-plugin-itinerarios' ); ?></h1>
+		<h1 class="mpi-archive__title"><?php esc_html_e( 'Itineraries', 'mi-plugin-itinerarios' ); ?></h1>
 	</header>
 
 	<?php if ( have_posts() ) : ?>

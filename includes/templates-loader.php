@@ -37,6 +37,17 @@ function mpi_template_include( $template ) {
 add_filter( 'template_include', 'mpi_template_include', 99 );
 
 /**
+ * Añade una URL alternativa para el archive del CPT:
+ * - /itineraries/ -> archive de 'itinerario'
+ *
+ * @return void
+ */
+function mpi_add_rewrite_rules() {
+	add_rewrite_rule( '^itineraries/?$', 'index.php?post_type=itinerario', 'top' );
+}
+add_action( 'init', 'mpi_add_rewrite_rules' );
+
+/**
  * Encola estilos y scripts solo en archivo/single de itinerario
  */
 function mpi_enqueue_assets() {
