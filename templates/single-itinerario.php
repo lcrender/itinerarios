@@ -57,7 +57,7 @@ while ( have_posts() ) {
 		<div class="mpi-single-itinerario__content entry-content">
 			<?php if ( ! empty( $precio_desde ) ) : ?>
 				<div class="mpi-single-itinerario__price">
-					<?php echo esc_html__( 'Desde', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
+					<?php echo esc_html__( 'From', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
 				</div>
 			<?php endif; ?>
 

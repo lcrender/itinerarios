@@ -79,7 +79,7 @@ function mpi_shortcode_itinerarios_list( $atts ) {
 				<div class="mpi-itinerario-card__image-wrap">
 					<?php if ( ! empty( $precio_desde ) ) : ?>
 						<div class="mpi-itinerario-card__price">
-							<?php echo esc_html__( 'Desde', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
+							<?php echo esc_html__( 'From', 'mi-plugin-itinerarios' ) . ' ' . esc_html( $precio_desde ); ?>
 						</div>
 					<?php endif; ?>
 
@@ -90,26 +90,26 @@ function mpi_shortcode_itinerarios_list( $atts ) {
 					<?php endif; ?>
 				</div>
 				<div class="mpi-itinerario-card__content">
-					<h3 class="mpi-itinerario-card__title">
+					<h3 class="mpi-itinerario-card__title mpi-itinerario-card__name">
 						<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
 					</h3>
 
 					<?php if ( $dias_count > 0 ) : ?>
 						<div class="mpi-itinerario-card__days">
 							<?php
-								echo esc_html( sprintf( _n( '%d día', '%d días', $dias_count, 'mi-plugin-itinerarios' ), $dias_count ) );
+								echo esc_html( sprintf( _n( '%d day', '%d days', $dias_count, 'mi-plugin-itinerarios' ), $dias_count ) );
 							?>
 						</div>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $subtitulo ) ) : ?>
-						<div class="mpi-itinerario-card__subtitle">
+						<div class="mpi-itinerario-card__subtitle mpi-itinerario-card__subtitle-text">
 							<?php echo esc_html( $subtitulo ); ?>
 						</div>
 					<?php endif; ?>
 
 					<a href="<?php echo esc_url( $permalink ); ?>" class="mpi-itinerario-card__btn mpi-btn mpi-btn--primary">
-						<?php esc_html_e( 'Ver detalle', 'mi-plugin-itinerarios' ); ?>
+						<?php esc_html_e( 'View details', 'mi-plugin-itinerarios' ); ?>
 					</a>
 				</div>
 			</article>

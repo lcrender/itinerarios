@@ -16,7 +16,7 @@ get_header();
 
 <main class="mpi-archive mpi-container">
 	<header class="mpi-archive__header">
-		<h1 class="mpi-archive__title"><?php esc_html_e( 'Itineraries', 'mi-plugin-itinerarios' ); ?></h1>
+		<h1 class="mpi-archive__title mpi-archive__title--itineraries"><?php esc_html_e( 'Itineraries', 'mi-plugin-itinerarios' ); ?></h1>
 	</header>
 
 	<?php if ( have_posts() ) : ?>
@@ -53,26 +53,26 @@ get_header();
 						<?php endif; ?>
 					</div>
 					<div class="mpi-itinerario-card__content">
-						<h2 class="mpi-itinerario-card__title">
+						<h2 class="mpi-itinerario-card__title mpi-itinerario-card__name">
 							<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
 						</h2>
 
 						<?php if ( $dias_count > 0 ) : ?>
 							<div class="mpi-itinerario-card__days">
 								<?php
-									echo esc_html( sprintf( _n( '%d día', '%d días', $dias_count, 'mi-plugin-itinerarios' ), $dias_count ) );
+									echo esc_html( sprintf( _n( '%d day', '%d days', $dias_count, 'mi-plugin-itinerarios' ), $dias_count ) );
 								?>
 							</div>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $subtitulo ) ) : ?>
-							<div class="mpi-itinerario-card__subtitle">
+							<div class="mpi-itinerario-card__subtitle mpi-itinerario-card__subtitle-text">
 								<?php echo esc_html( $subtitulo ); ?>
 							</div>
 						<?php endif; ?>
 
 						<a href="<?php echo esc_url( $permalink ); ?>" class="mpi-itinerario-card__btn mpi-btn mpi-btn--primary">
-							<?php esc_html_e( 'Ver detalle', 'mi-plugin-itinerarios' ); ?>
+							<?php esc_html_e( 'View details', 'mi-plugin-itinerarios' ); ?>
 						</a>
 					</div>
 				</article>
