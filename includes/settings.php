@@ -41,7 +41,7 @@ function mpi_render_settings_page() {
 		$saved = true;
 	}
 
-	$cf7_shortcode = get_option( MPI_OPTION_CF7_SHORTCODE, '[contact-form-7 id="123" title="Reserva itinerario"]' );
+	$cf7_shortcode = get_option( MPI_OPTION_CF7_SHORTCODE, '[contact-form-7 id="123" title="Itinerary booking"]' );
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -60,7 +60,7 @@ function mpi_render_settings_page() {
 						<label for="mpi_cf7_shortcode"><?php esc_html_e( 'Shortcode de reserva (Contact Form 7)', 'mi-plugin-itinerarios' ); ?></label>
 					</th>
 					<td>
-						<input type="text" name="mpi_cf7_shortcode" id="mpi_cf7_shortcode" value="<?php echo esc_attr( $cf7_shortcode ); ?>" class="large-text" placeholder='[contact-form-7 id="123" title="Reserva itinerario"]'>
+						<input type="text" name="mpi_cf7_shortcode" id="mpi_cf7_shortcode" value="<?php echo esc_attr( $cf7_shortcode ); ?>" class="large-text" placeholder='[contact-form-7 id="123" title="Itinerary booking"]'>
 						<p class="description">
 							<?php esc_html_e( 'Pega el shortcode de tu formulario de Contact Form 7. Cambia el id por el ID real de tu formulario (en Contacto → Formularios).', 'mi-plugin-itinerarios' ); ?>
 						</p>

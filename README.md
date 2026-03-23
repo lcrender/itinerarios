@@ -41,19 +41,19 @@ Inserte en cualquier página o entrada el shortcode del listado:
 
 ---
 
-## Botón "Reservar plaza" y Contact Form 7
+## Botón "Reserve places" y Contact Form 7
 
-El template del itinerario incluye un botón **Reservar plaza** que abre un modal con un formulario de Contact Form 7.
+El template del itinerario incluye un botón **Reserve places** que abre un modal con un formulario de Contact Form 7.
 
 ### Configurar el ID del formulario
 
-Por defecto el plugin usa el shortcode `[contact-form-7 id="123" title="Reserva itinerario"]`. Debes cambiar `123` por el ID real de tu formulario en CF7.
+Por defecto el plugin usa el shortcode `[contact-form-7 id="123" title="Itinerary booking"]`. Debes cambiar `123` por el ID real de tu formulario en CF7.
 
 **Opción 1 – Filtro en el tema (functions.php) o en un plugin:**
 
 ```php
 add_filter( 'mpi_reserva_cf7_shortcode', function() {
-    return '[contact-form-7 id="456" title="Reserva itinerario"]';
+    return '[contact-form-7 id="456" title="Itinerary booking"]';
 } );
 ```
 

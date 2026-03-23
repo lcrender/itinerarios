@@ -89,7 +89,7 @@ function mpi_render_metaboxes( $post ) {
 	</p>
 
 	<p>
-		<label for="mpi_extras_incluidos"><strong><?php esc_html_e( 'Extras incluidos', 'mi-plugin-itinerarios' ); ?></strong></label><br>
+		<label for="mpi_extras_incluidos"><strong><?php esc_html_e( 'Included extras', 'mi-plugin-itinerarios' ); ?></strong></label><br>
 		<textarea id="mpi_extras_incluidos" name="mpi_extras_incluidos" rows="4" class="large-text" placeholder="<?php esc_attr_e( 'Una opción por línea (recomendado).', 'mi-plugin-itinerarios' ); ?>"><?php echo esc_textarea( $extras_incluidos ); ?></textarea>
 		<p class="description"><?php esc_html_e( 'Puedes escribir texto libre o un listado (un extra por línea).', 'mi-plugin-itinerarios' ); ?></p>
 	</p>
