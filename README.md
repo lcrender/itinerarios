@@ -13,6 +13,13 @@ Plugin de WordPress para gestionar itinerarios turísticos. Incluye CPT, metabox
 3. (Opcional) Instala y activa **Contact Form 7** si quieres usar el botón de reserva.
 4. Ve a **Ajustes > Enlaces permanentes** y guarda los cambios para refrescar las reglas de reescritura.
 
+### URLs públicas (inglés)
+
+- **Archivo / listado:** `/itineraries/`
+- **Cada itinerario:** `/itinerary/nombre-del-post/`
+
+Las URLs antiguas `/itinerario/` y `/itinerario/slug/` redirigen con **301** a las nuevas rutas.
+
 ---
 
 ## Uso del shortcode

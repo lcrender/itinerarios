@@ -37,15 +37,65 @@ function mpi_template_include( $template ) {
 add_filter( 'template_include', 'mpi_template_include', 99 );
 
 /**
- * Añade una URL alternativa para el archive del CPT:
- * - /itineraries/ -> archive de 'itinerario'
+ * Ruta relativa al sitio (sin slash inicial/final) para comprobar redirecciones legacy.
+ *
+ * @return string
+ */
+function mpi_get_public_request_path() {
+	global $wp;
+	if ( isset( $wp->request ) && is_string( $wp->request ) && $wp->request !== '' ) {
+		return $wp->request;
+	}
+
+	$raw = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$path = wp_parse_url( $raw, PHP_URL_PATH );
+	if ( ! is_string( $path ) || $path === '' ) {
+		return '';
+	}
+
+	$home_path = wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+	if ( is_string( $home_path ) && $home_path !== '' && $home_path !== '/' ) {
+		$home_path = untrailingslashit( $home_path );
+		if ( strpos( $path, $home_path ) === 0 ) {
+			$path = (string) substr( $path, strlen( $home_path ) );
+		}
+	}
+
+	return trim( $path, '/' );
+}
+
+/**
+ * Redirige URLs antiguas en español a las slugs en inglés (301).
+ *
+ * - /itinerario/             -> /itineraries/
+ * - /itinerario/post-slug/   -> /itinerary/post-slug/
  *
  * @return void
  */
-function mpi_add_rewrite_rules() {
-	add_rewrite_rule( '^itineraries/?$', 'index.php?post_type=itinerario', 'top' );
+function mpi_redirect_legacy_itinerario_urls() {
+	if ( is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+		return;
+	}
+
+	$req = mpi_get_public_request_path();
+	if ( $req === '' ) {
+		return;
+	}
+
+	if ( 'itinerario' === $req ) {
+		wp_safe_redirect( get_post_type_archive_link( 'itinerario' ), 301 );
+		exit;
+	}
+
+	if ( preg_match( '#^itinerario/([^/]+)$#', $req, $m ) ) {
+		$post = get_page_by_path( $m[1], OBJECT, 'itinerario' );
+		if ( $post instanceof WP_Post ) {
+			wp_safe_redirect( get_permalink( $post ), 301 );
+			exit;
+		}
+	}
 }
-add_action( 'init', 'mpi_add_rewrite_rules' );
+add_action( 'template_redirect', 'mpi_redirect_legacy_itinerario_urls', 1 );
 
 /**
  * Encola estilos y scripts solo en archivo/single de itinerario

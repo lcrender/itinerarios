@@ -3,7 +3,7 @@
  * Plugin Name: Itinerarios
  * Plugin URI: https://locomotorarender.com
  * Description: Gestiona itinerarios turísticos con CPT, metaboxes, listado y detalle con reserva vía Contact Form 7.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Locomotora Render
  * Author URI: https://locomotorarender.com
  * License: GPL v2 or later
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MPI_VERSION', '1.0.0' );
+define( 'MPI_VERSION', '1.0.1' );
 define( 'MPI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MPI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -37,13 +37,23 @@ mpi_load_plugin();
  */
 function mpi_activate() {
 	mpi_register_cpt();
-	// Asegura que la regla de rewrite exista antes del flush.
-	if ( function_exists( 'mpi_add_rewrite_rules' ) ) {
-		mpi_add_rewrite_rules();
-	}
 	flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'mpi_activate' );
+
+/**
+ * Tras actualizar el plugin, refresca las reglas de URL una vez (nuevos slugs en inglés).
+ *
+ * @return void
+ */
+function mpi_maybe_flush_rewrites() {
+	if ( get_option( 'mpi_rewrite_rules_version' ) === MPI_VERSION ) {
+		return;
+	}
+	flush_rewrite_rules( false );
+	update_option( 'mpi_rewrite_rules_version', MPI_VERSION );
+}
+add_action( 'init', 'mpi_maybe_flush_rewrites', 99 );
 
 /**
  * Desactivación: flush rewrite rules

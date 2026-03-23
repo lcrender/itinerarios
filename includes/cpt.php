@@ -34,9 +34,10 @@ function mpi_register_cpt() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'itinerario' ),
+		/* Archive: /itineraries/ — Single: /itinerary/nombre-del-post/ */
+		'rewrite'            => array( 'slug' => 'itinerary' ),
 		'capability_type'    => 'post',
-		'has_archive'        => true,
+		'has_archive'        => 'itineraries',
 		'hierarchical'       => false,
 		'menu_position'      => 20,
 		'menu_icon'          => 'dashicons-location-alt',
