@@ -315,10 +315,24 @@
 
 .mpi-timeline__card {
 	flex: 1;
+	position: relative;
 	background: #fff;
 	border: 1px solid #eaeaea;
 	border-radius: 8px;
 	padding: 1rem;
+	margin-top: 8px;
+}
+
+.mpi-timeline__card::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: -114px;
+	width: 114px;
+	height: 3px;
+	background: #d9d9d9;
+	transform: translateY(-50%);
+	border-radius: 999px;
 }
 
 .mpi-timeline__card-inner {
@@ -380,6 +394,14 @@
 	.mpi-timeline__card-inner {
 		flex-direction: column;
 		gap: 12px;
+	}
+
+	.mpi-timeline__card {
+		margin-top: 0;
+	}
+
+	.mpi-timeline__card::before {
+		display: none;
 	}
 
 	.mpi-timeline__card-image {
