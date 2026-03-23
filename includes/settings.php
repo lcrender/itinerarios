@@ -51,6 +51,32 @@ function mpi_add_settings_menu() {
 add_action( 'admin_menu', 'mpi_add_settings_menu' );
 
 /**
+ * Guarda la opción vía admin-post.php (evita que edit.php no ejecute el callback con POST).
+ *
+ * @return void
+ */
+function mpi_handle_save_itinerarios_settings() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( esc_html__( 'No tienes permisos para realizar esta acción.', 'mi-plugin-itinerarios' ) );
+	}
+
+	if ( ! isset( $_POST['mpi_settings_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mpi_settings_nonce'] ) ), 'mpi_save_settings' ) ) {
+		wp_safe_redirect( add_query_arg( 'mpi_settings_msg', 'nonce', mpi_settings_page_url() ) );
+		exit;
+	}
+
+	$raw       = isset( $_POST['mpi_cf7_shortcode'] ) ? wp_unslash( $_POST['mpi_cf7_shortcode'] ) : '';
+	$shortcode = mpi_sanitize_cf7_shortcode_option( $raw );
+
+	// autoload true: algunos entornos/cache raro con false no refrescan get_option de inmediato.
+	update_option( MPI_OPTION_CF7_SHORTCODE, $shortcode, true );
+
+	wp_safe_redirect( add_query_arg( 'mpi_settings_msg', 'saved', mpi_settings_page_url() ) );
+	exit;
+}
+add_action( 'admin_post_mpi_save_itinerarios_settings', 'mpi_handle_save_itinerarios_settings' );
+
+/**
  * Renderiza la página de configuración
  */
 function mpi_render_settings_page() {
@@ -58,24 +84,7 @@ function mpi_render_settings_page() {
 		return;
 	}
 
-	$saved      = false;
-	$save_error = '';
-
-	if (
-		isset( $_SERVER['REQUEST_METHOD'] )
-		&& 'POST' === $_SERVER['REQUEST_METHOD']
-		&& isset( $_POST['mpi_cf7_shortcode_submit'] )
-	) {
-		if ( ! isset( $_POST['mpi_settings_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mpi_settings_nonce'] ) ), 'mpi_save_settings' ) ) {
-			$save_error = __( 'La verificación de seguridad falló. Recarga la página e inténtalo de nuevo.', 'mi-plugin-itinerarios' );
-		} else {
-			$raw       = isset( $_POST['mpi_cf7_shortcode'] ) ? wp_unslash( $_POST['mpi_cf7_shortcode'] ) : '';
-			$shortcode = mpi_sanitize_cf7_shortcode_option( $raw );
-			// update_option puede devolver false si el valor no cambió; igual mostramos éxito.
-			update_option( MPI_OPTION_CF7_SHORTCODE, $shortcode, false );
-			$saved = true;
-		}
-	}
+	$msg = isset( $_GET['mpi_settings_msg'] ) ? sanitize_key( wp_unslash( $_GET['mpi_settings_msg'] ) ) : '';
 
 	$cf7_shortcode = get_option( MPI_OPTION_CF7_SHORTCODE, '[contact-form-7 id="123" title="Itinerary booking"]' );
 	?>
@@ -83,15 +92,14 @@ function mpi_render_settings_page() {
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<p><?php esc_html_e( 'Configura aquí las opciones del plugin Itinerarios.', 'mi-plugin-itinerarios' ); ?></p>
 
-		<?php if ( $saved && '' === $save_error ) : ?>
+		<?php if ( 'saved' === $msg ) : ?>
 			<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Configuración guardada.', 'mi-plugin-itinerarios' ); ?></p></div>
+		<?php elseif ( 'nonce' === $msg ) : ?>
+			<div class="notice notice-error is-dismissible"><p><?php esc_html_e( 'La verificación de seguridad falló. Recarga la página e inténtalo de nuevo.', 'mi-plugin-itinerarios' ); ?></p></div>
 		<?php endif; ?>
 
-		<?php if ( '' !== $save_error ) : ?>
-			<div class="notice notice-error is-dismissible"><p><?php echo esc_html( $save_error ); ?></p></div>
-		<?php endif; ?>
-
-		<form method="post" action="<?php echo esc_url( mpi_settings_page_url() ); ?>" novalidate>
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" novalidate>
+			<input type="hidden" name="action" value="mpi_save_itinerarios_settings" />
 			<?php wp_nonce_field( 'mpi_save_settings', 'mpi_settings_nonce' ); ?>
 
 			<table class="form-table" role="presentation">
@@ -109,7 +117,7 @@ function mpi_render_settings_page() {
 			</table>
 
 			<p class="submit">
-				<button type="submit" name="mpi_cf7_shortcode_submit" value="1" class="button button-primary"><?php esc_html_e( 'Guardar cambios', 'mi-plugin-itinerarios' ); ?></button>
+				<button type="submit" class="button button-primary"><?php esc_html_e( 'Guardar cambios', 'mi-plugin-itinerarios' ); ?></button>
 			</p>
 		</form>
 

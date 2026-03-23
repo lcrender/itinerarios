@@ -3,7 +3,7 @@
  * Plugin Name: Itinerarios
  * Plugin URI: https://locomotorarender.com
  * Description: Gestiona itinerarios turísticos con CPT, metaboxes, listado y detalle con reserva vía Contact Form 7.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Locomotora Render
  * Author URI: https://locomotorarender.com
  * License: GPL v2 or later
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MPI_VERSION', '1.0.2' );
+define( 'MPI_VERSION', '1.0.3' );
 define( 'MPI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MPI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
