@@ -107,7 +107,7 @@ while ( have_posts() ) {
 					$extras_lines = array_values( $extras_lines );
 				?>
 				<section class="mpi-single-itinerario__extras">
-					<h2><?php esc_html_e( 'Extras incluidos', 'mi-plugin-itinerarios' ); ?></h2>
+					<h2><?php esc_html_e( 'Included extras', 'mi-plugin-itinerarios' ); ?></h2>
 
 					<?php if ( count( $extras_lines ) > 1 ) : ?>
 						<ul class="mpi-extras-list">
@@ -126,7 +126,7 @@ while ( have_posts() ) {
 
 		<section class="mpi-single-itinerario__reserva">
 			<button type="button" class="mpi-btn mpi-btn--primary mpi-btn-reserva" data-itinerario-id="<?php echo esc_attr( (string) $post_id ); ?>" data-itinerario-titulo="<?php echo esc_attr( get_the_title() ); ?>">
-				<?php esc_html_e( 'Reservar plaza', 'mi-plugin-itinerarios' ); ?>
+				<?php esc_html_e( 'Reserve', 'mi-plugin-itinerarios' ); ?>
 			</button>
 		</section>
 
@@ -135,7 +135,7 @@ while ( have_posts() ) {
 			<div class="mpi-modal__overlay"></div>
 			<div class="mpi-modal__content">
 				<button type="button" class="mpi-modal__close" aria-label="<?php esc_attr_e( 'Cerrar', 'mi-plugin-itinerarios' ); ?>">&times;</button>
-				<h2 class="mpi-modal__title"><?php esc_html_e( 'Reservar plaza', 'mi-plugin-itinerarios' ); ?></h2>
+				<h2 class="mpi-modal__title"><?php esc_html_e( 'Reserve', 'mi-plugin-itinerarios' ); ?></h2>
 				<div class="mpi-modal__form">
 					<?php echo do_shortcode( $cf7_shortcode ); ?>
 					<!-- En Contact Form 7 crea un campo oculto con nombre "itinerario-reserva". El JS del plugin lo rellena con el título del itinerario al abrir el modal. -->
