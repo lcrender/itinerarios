@@ -12,6 +12,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'MPI_OPTION_CF7_SHORTCODE', 'mpi_cf7_shortcode' );
 
 /**
+ * Sanitiza el shortcode CF7 guardado (no usar sanitize_text_field: puede vaciar o romper el valor).
+ *
+ * @param string $value Valor enviado.
+ * @return string
+ */
+function mpi_sanitize_cf7_shortcode_option( $value ) {
+	if ( ! is_string( $value ) ) {
+		return '';
+	}
+	$value = str_replace( "\0", '', $value );
+	$value = wp_check_invalid_utf8( $value, true );
+	return trim( $value );
+}
+
+/**
+ * URL absoluta de la página de ajustes del plugin (evita POST con action vacío).
+ *
+ * @return string
+ */
+function mpi_settings_page_url() {
+	return admin_url( 'edit.php?post_type=itinerario&page=itinerarios-config' );
+}
+
+/**
  * Añade el submenú de configuración bajo Itinerarios
  */
 function mpi_add_settings_menu() {
@@ -34,11 +58,23 @@ function mpi_render_settings_page() {
 		return;
 	}
 
-	$saved = false;
-	if ( isset( $_POST['mpi_settings_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mpi_settings_nonce'] ) ), 'mpi_save_settings' ) ) {
-		$shortcode = isset( $_POST['mpi_cf7_shortcode'] ) ? sanitize_text_field( wp_unslash( $_POST['mpi_cf7_shortcode'] ) ) : '';
-		update_option( MPI_OPTION_CF7_SHORTCODE, $shortcode );
-		$saved = true;
+	$saved      = false;
+	$save_error = '';
+
+	if (
+		isset( $_SERVER['REQUEST_METHOD'] )
+		&& 'POST' === $_SERVER['REQUEST_METHOD']
+		&& isset( $_POST['mpi_cf7_shortcode_submit'] )
+	) {
+		if ( ! isset( $_POST['mpi_settings_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mpi_settings_nonce'] ) ), 'mpi_save_settings' ) ) {
+			$save_error = __( 'La verificación de seguridad falló. Recarga la página e inténtalo de nuevo.', 'mi-plugin-itinerarios' );
+		} else {
+			$raw       = isset( $_POST['mpi_cf7_shortcode'] ) ? wp_unslash( $_POST['mpi_cf7_shortcode'] ) : '';
+			$shortcode = mpi_sanitize_cf7_shortcode_option( $raw );
+			// update_option puede devolver false si el valor no cambió; igual mostramos éxito.
+			update_option( MPI_OPTION_CF7_SHORTCODE, $shortcode, false );
+			$saved = true;
+		}
 	}
 
 	$cf7_shortcode = get_option( MPI_OPTION_CF7_SHORTCODE, '[contact-form-7 id="123" title="Itinerary booking"]' );
@@ -47,11 +83,15 @@ function mpi_render_settings_page() {
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<p><?php esc_html_e( 'Configura aquí las opciones del plugin Itinerarios.', 'mi-plugin-itinerarios' ); ?></p>
 
-		<?php if ( $saved ) : ?>
+		<?php if ( $saved && '' === $save_error ) : ?>
 			<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Configuración guardada.', 'mi-plugin-itinerarios' ); ?></p></div>
 		<?php endif; ?>
 
-		<form method="post" action="">
+		<?php if ( '' !== $save_error ) : ?>
+			<div class="notice notice-error is-dismissible"><p><?php echo esc_html( $save_error ); ?></p></div>
+		<?php endif; ?>
+
+		<form method="post" action="<?php echo esc_url( mpi_settings_page_url() ); ?>" novalidate>
 			<?php wp_nonce_field( 'mpi_save_settings', 'mpi_settings_nonce' ); ?>
 
 			<table class="form-table" role="presentation">
@@ -69,7 +109,7 @@ function mpi_render_settings_page() {
 			</table>
 
 			<p class="submit">
-				<button type="submit" class="button button-primary"><?php esc_html_e( 'Guardar cambios', 'mi-plugin-itinerarios' ); ?></button>
+				<button type="submit" name="mpi_cf7_shortcode_submit" value="1" class="button button-primary"><?php esc_html_e( 'Guardar cambios', 'mi-plugin-itinerarios' ); ?></button>
 			</p>
 		</form>
 
