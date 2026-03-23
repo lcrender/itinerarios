@@ -12,6 +12,11 @@
 	var modal = document.getElementById('mpi-modal-reserva');
 	if (!modal) return;
 
+	// Evita que position:fixed quede atrapado por transform/overflow del tema (modal cortado / bajo el footer).
+	if (modal.parentNode && modal.parentNode !== document.body) {
+		document.body.appendChild(modal);
+	}
+
 	var overlay = modal.querySelector('.mpi-modal__overlay');
 	var closeBtn = modal.querySelector('.mpi-modal__close');
 	var reservaBtns = document.querySelectorAll('.mpi-btn-reserva');

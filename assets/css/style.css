@@ -518,15 +518,17 @@
 	border-radius: 4px;
 }
 
-/* Modal reserva */
+/* Modal reserva (trasladado a body por JS: fixed respecto al viewport, por encima del footer) */
 .mpi-modal {
 	display: none;
 	position: fixed;
 	inset: 0;
-	z-index: 100000;
+	z-index: 9999999;
 	align-items: center;
 	justify-content: center;
 	padding: 1rem;
+	box-sizing: border-box;
+	isolation: isolate;
 }
 
 .mpi-modal.is-open {
@@ -536,19 +538,22 @@
 .mpi-modal__overlay {
 	position: absolute;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.5);
+	z-index: 0;
+	background: rgba(0, 0, 0, 0.55);
 	cursor: pointer;
 }
 
 .mpi-modal__content {
 	position: relative;
+	z-index: 1;
 	background: #fff;
 	border-radius: 8px;
 	padding: 1.5rem;
-	max-width: 500px;
+	max-width: 520px;
 	width: 100%;
-	max-height: 90vh;
+	max-height: min(90vh, calc(100dvh - 2rem));
 	overflow-y: auto;
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
 .mpi-modal__close {
@@ -575,13 +580,71 @@
 
 .mpi-modal__form .wpcf7-form label {
 	display: block;
-	margin-bottom: 0.25rem;
+	margin-bottom: 0.35rem;
+	font-weight: 600;
+	color: #1d2327;
 }
 
 .mpi-modal__form .wpcf7-form input[type="text"],
 .mpi-modal__form .wpcf7-form input[type="email"],
+.mpi-modal__form .wpcf7-form input[type="tel"],
+.mpi-modal__form .wpcf7-form input[type="number"],
+.mpi-modal__form .wpcf7-form input[type="date"],
+.mpi-modal__form .wpcf7-form input[type="url"],
+.mpi-modal__form .wpcf7-form select,
 .mpi-modal__form .wpcf7-form textarea {
 	width: 100%;
+	max-width: 100%;
 	margin-bottom: 1rem;
-	padding: 0.5rem;
+	padding: 0.6rem 0.75rem;
+	box-sizing: border-box;
+	font-size: 1rem;
+	line-height: 1.4;
+	color: #1d2327;
+	background-color: #fff;
+	border: 1px solid #50575e;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.mpi-modal__form .wpcf7-form input[type="text"]:focus,
+.mpi-modal__form .wpcf7-form input[type="email"]:focus,
+.mpi-modal__form .wpcf7-form input[type="tel"]:focus,
+.mpi-modal__form .wpcf7-form input[type="number"]:focus,
+.mpi-modal__form .wpcf7-form input[type="date"]:focus,
+.mpi-modal__form .wpcf7-form input[type="url"]:focus,
+.mpi-modal__form .wpcf7-form select:focus,
+.mpi-modal__form .wpcf7-form textarea:focus {
+	border-color: #2271b1;
+	outline: 2px solid transparent;
+	box-shadow: 0 0 0 1px #2271b1, inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.mpi-modal__form .wpcf7-form textarea {
+	min-height: 100px;
+	resize: vertical;
+}
+
+.mpi-modal__form .wpcf7-form input::placeholder,
+.mpi-modal__form .wpcf7-form textarea::placeholder {
+	color: #646970;
+	opacity: 1;
+}
+
+.mpi-modal__form .wpcf7-submit,
+.mpi-modal__form input[type="submit"] {
+	margin-top: 0.25rem;
+	padding: 0.65rem 1.25rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #fff;
+	background: #2271b1;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.mpi-modal__form .wpcf7-submit:hover,
+.mpi-modal__form input[type="submit"]:hover {
+	background: #135e96;
 }
